@@ -20,8 +20,11 @@ export default new Vuex.Store({
         }]
     },
     mutations: {
-        setNewTodp(state, value){
+        setNewTodo(state, value){
             state.newTodo = value
+        },
+        addTodo(state) {
+            console.log('addTodo called')
         }
     },
     actions: {

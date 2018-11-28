@@ -7,17 +7,17 @@
         {{ todo.title }}
       </li>
     </ul>
-    <form>
+    <form @submit.prevent="addTodo">
       <label for="newTodo">New Todo</label><br>
-      <input type="text" id="newTodo">
+      <input v-model="newTodo" type="text" id="newTodo">
       <br><br>
-      <button type="submit" @click.prevent="">Add</button>
+      <button type="submit">Add</button>
     </form>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 
 export default {
@@ -25,14 +25,15 @@ export default {
   computed: {
     newTodo: {
       get(){
-        return this.$store.newTodo
+        return this.$store.state.newTodo
       },
       set(value){
         this.$store.commit('setNewTodo', value)
       }
     },
-    ...mapState(['todos'])
-  }
+    ...mapState(['title', 'todos'])
+  },
+  methods: mapMutations(['addTodo'])
 };
 </script>
 
