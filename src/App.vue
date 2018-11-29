@@ -1,50 +1,34 @@
-<template>
-  <div id="app">
-    <!-- <img width="10%" src="./assets/logo.png"> -->
-    <h2>Vuex Todo</h2>
-    <ul>
-      <li v-for="(todo, i) in todos" :key="i">
-        {{ todo.title }}
-      </li>
-    </ul>
-    <form @submit.prevent="addTodo">
-      <label for="newTodo">New Todo</label><br>
-      <input v-model="newTodo" type="text" id="newTodo">
-      <br><br>
-      <button type="submit">Add</button>
-    </form>
-  </div>
-</template>
-
-<script>
-import { mapState, mapMutations } from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
 
-export default {
-  name: "App",
-  computed: {
-    newTodo: {
-      get(){
-        return this.$store.state.newTodo
+Vue.use(Vuex);
+
+export default new Vuex.Store({
+  state: {
+    newTodo: "",
+    todos: [
+      {
+        title: "Learn Vuejs",
+        completed: false
       },
-      set(value){
-        this.$store.commit('setNewTodo', value)
+      {
+        title: "Learn Vuex",
+        completed: false
+      },
+      {
+        title: "Integrate Vuex",
+        completed: false
       }
-    },
-    ...mapState(['title', 'todos'])
+    ]
   },
-  methods: mapMutations(['addTodo'])
-};
-</script>
-
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  margin-top: 60px;
-  width: 25%;
-  margin: 0 auto;
-}
-</style>
+  mutations: {
+    setNewTodo(state, value) {
+      state.newTodo = value;
+    },
+    addTodo(state) {
+      console.log("addTodo called");
+    }
+  },
+  actions: {}
+});
